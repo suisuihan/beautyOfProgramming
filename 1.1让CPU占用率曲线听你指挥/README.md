@@ -20,8 +20,8 @@ __吐个槽，书里代码错误真多啊。。。__
 
 ### 代码说明
 
-* [solution2.cpp]() 简单的跑 10ms sleep 10ms，效果如下：
-[solution2 的CPU曲线效果]()
+* [solution2.cpp]() 简单的跑 10ms sleep 10ms，效果如下：    
+![solution2 的CPU曲线效果](https://github.com/suisuihan/beautyOfProgramming/blob/master/1.1%E8%AE%A9CPU%E5%8D%A0%E7%94%A8%E7%8E%87%E6%9B%B2%E7%BA%BF%E5%90%AC%E4%BD%A0%E6%8C%87%E6%8C%A5/solution2.png)
 
 * [solution3.py]() __可以指定cpu（单核）使用率比例的代码。__原理就是绑定自己在某个CPU上，然后不断获取当前核的CPU使用率，高则sleep。测试过程中发现sleep(0.01)的话会导致cpu使用率上不去，猜测为当代cpu更牛逼，频率更高，进程/线程调度时间消耗更小。很惭愧没有用c++实现，CLI实在是太难搞明白了……    
-[solution3 的 CPU 曲线效果]()
+![solution3 的 CPU 曲线效果](https://github.com/suisuihan/beautyOfProgramming/blob/master/1.1%E8%AE%A9CPU%E5%8D%A0%E7%94%A8%E7%8E%87%E6%9B%B2%E7%BA%BF%E5%90%AC%E4%BD%A0%E6%8C%87%E6%8C%A5/solution3.PNG)
