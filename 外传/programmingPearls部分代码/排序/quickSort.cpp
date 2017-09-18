@@ -10,9 +10,41 @@ void swap(T a[], int i, int j){
     a[j] = a[i];
 }
 
+template <typename T>
+void insertSort(T a[], int begin, int end){
+    int length = end - begin + 1;
+    if(length <= 1)
+        return;
+    for(int i = begin+1; i < end+1; i++){
+        T t = a[i];
+        int j = i;
+        for (; j > begin && a[j-1] > t; j--)
+            a[j] = a[j-1];
+        a[j] = t;
+    }
+}
 
 template <typename T>
-void quickSort(T a[], int begin, int end){
+void quickSort1(T a[], int begin, int end){
+    if (begin >= end)
+        return;
+    int i = begin, j = end;
+    // int isSelect = rand()%(end - begin) + begin;
+    // swap(a, begin, isSelect);
+    T choiceValue = a[begin];
+    while(i < j){
+        if(i < j and a[j] >= choiceValue) j--;
+        a[i] = a[j];
+        if(i < j and a[i] < choiceValue) i++;
+        a[j] = a[i];
+    }
+    a[i] = choiceValue;
+    quickSort1(a, begin, i - 1);
+    quickSort1(a, i + 1, end);
+}
+
+template <typename T>
+void quickSort2(T a[], int begin, int end){
     if (begin >= end)
         return;
     int i = begin, j = end;
@@ -24,23 +56,44 @@ void quickSort(T a[], int begin, int end){
         a[i] = a[j];
         if(i < j and a[i] < choiceValue) i++;
         a[j] = a[i];
-        //for(T m: a){
-        //    cout << m << " ";
-        //}
-        //cout << endl;
     }
     a[i] = choiceValue;
-    quickSort(a, begin, i - 1);
-    quickSort(a, i + 1, end);
+    quickSort2(a, begin, i - 1);
+    quickSort2(a, i + 1, end);
 }
+
+template <typename T>
+void quickSort3(T a[], int begin, int end){
+    int std_length = 5;
+    if ((end - begin) <= std_length){
+        insertSort(a, begin, end);
+        return;
+    }
+    int i = begin, j = end;
+    int isSelect = rand()%(end - begin) + begin;
+    swap(a, begin, isSelect);
+    T choiceValue = a[begin];
+    while(i < j){
+        if(i < j and a[j] >= choiceValue) j--;
+        a[i] = a[j];
+        if(i < j and a[i] < choiceValue) i++;
+        a[j] = a[i];
+    }
+    a[i] = choiceValue;
+    quickSort3(a, begin, i - 1);
+    quickSort3(a, i + 1, end);
+}
+
 
 int main(){
     int a[] = {1,3,1,4,2,8,4};
     srand(time(NULL));
-    quickSort(a, 0, 6);
+    // quickSort1(a, 0, 6);
+    // quickSort2(a, 0, 6);
+    quickSort3(a, 0, 6);
     for(auto i: a){
         cout << i << " ";
     }
     cout << endl;
-    return 0;
+   return 0;
 }
