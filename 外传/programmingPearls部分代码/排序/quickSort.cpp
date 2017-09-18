@@ -7,20 +7,19 @@ template <typename T>
 void swap(T a[], int i, int j){
     T t = a[i];
     a[i] = a[j];
-    a[j] = a[i];
+    a[j] = t;
 }
 
 template <typename T>
-void insertSort(T a[], int begin, int end){
-    int length = end - begin + 1;
-    if(length <= 1)
+void insertSort(T *a, int length){
+    if (length <= 1)
         return;
-    for(int i = begin+1; i < end+1; i++){
+    for(int i = 1; i < length; i++){
         T t = a[i];
         int j = i;
-        for (; j > begin && a[j-1] > t; j--)
-            a[j] = a[j-1];
-        a[j] = t;
+        for(; j > 0 && a[j-1] > a[j] ; j--)
+                a[j] = a[j-1];
+        a[j+1] = t;
     }
 }
 
@@ -33,9 +32,9 @@ void quickSort1(T a[], int begin, int end){
     // swap(a, begin, isSelect);
     T choiceValue = a[begin];
     while(i < j){
-        if(i < j and a[j] >= choiceValue) j--;
+        while(i < j and a[j] >= choiceValue) j--;
         a[i] = a[j];
-        if(i < j and a[i] < choiceValue) i++;
+        while(i < j and a[i] < choiceValue) i++;
         a[j] = a[i];
     }
     a[i] = choiceValue;
@@ -52,9 +51,9 @@ void quickSort2(T a[], int begin, int end){
     swap(a, begin, isSelect);
     T choiceValue = a[begin];
     while(i < j){
-        if(i < j and a[j] >= choiceValue) j--;
+        while(i < j and a[j] >= choiceValue) j--;
         a[i] = a[j];
-        if(i < j and a[i] < choiceValue) i++;
+        while(i < j and a[i] < choiceValue) i++;
         a[j] = a[i];
     }
     a[i] = choiceValue;
@@ -64,24 +63,23 @@ void quickSort2(T a[], int begin, int end){
 
 template <typename T>
 void quickSort3(T a[], int begin, int end){
-    int std_length = 5;
-    if ((end - begin) <= std_length){
-        insertSort(a, begin, end);
+    int std_length = 50;
+    if ((end - begin) < 50)
         return;
-    }
     int i = begin, j = end;
     int isSelect = rand()%(end - begin) + begin;
     swap(a, begin, isSelect);
     T choiceValue = a[begin];
     while(i < j){
-        if(i < j and a[j] >= choiceValue) j--;
+        while(i < j and a[j] >= choiceValue) j--;
         a[i] = a[j];
-        if(i < j and a[i] < choiceValue) i++;
+        while(i < j and a[i] < choiceValue) i++;
         a[j] = a[i];
     }
     a[i] = choiceValue;
     quickSort3(a, begin, i - 1);
     quickSort3(a, i + 1, end);
+    insertSort(a, end+1);
 }
 
 
