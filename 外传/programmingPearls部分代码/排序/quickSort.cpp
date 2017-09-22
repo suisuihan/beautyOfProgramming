@@ -17,9 +17,9 @@ void insertSort(T *a, int length){
     for(int i = 1; i < length; i++){
         T t = a[i];
         int j = i;
-        for(; j > 0 && a[j-1] > a[j] ; j--)
+        for(; j > 0 && a[j-1] > t ; j--)
                 a[j] = a[j-1];
-        a[j+1] = t;
+        a[j] = t;
     }
 }
 
