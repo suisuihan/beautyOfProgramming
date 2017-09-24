@@ -102,7 +102,17 @@
 		node *head, *sentinel;
 	};
 	~~~
-	维护单向链表的顺序。
+	维护单向链表的顺序。单链表的insert 递归可以改为：
+	~~~cpp
+	void insert(int t){
+		for (node **p = &head; (*p)->val < t; p = &((*p)-next))
+			;
+		if ((*p)->value == t)
+			return;
+		*p = new node(t, *p);
+		n++;
+	}
+	~~~
 
 * 二叉树
 	~~~cpp
